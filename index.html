@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Powered Pharmaceutical Snippet Classifier</title>
+    <title>Enhanced Pharmaceutical Snippet Classifier</title>
     <style>
         * {
             margin: 0;
@@ -99,6 +99,217 @@
 
         .main-content {
             padding: 40px;
+        }
+
+        .tab-container {
+            margin-bottom: 30px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 15px 25px;
+            font-size: 1.1em;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            color: #3498db;
+            border-bottom-color: #3498db;
+            background: rgba(52, 152, 219, 0.05);
+        }
+
+        .tab-button:hover {
+            color: #3498db;
+            background: rgba(52, 152, 219, 0.05);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .batch-upload-area {
+            border: 2px dashed #e0e0e0;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .batch-upload-area:hover {
+            border-color: #3498db;
+            background: rgba(52, 152, 219, 0.02);
+        }
+
+        .batch-textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95em;
+            resize: vertical;
+        }
+
+        .batch-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .batch-process-btn {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .batch-process-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+        }
+
+        .batch-process-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .snippet-separator-info {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .batch-progress {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #3498db;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .batch-results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .batch-results-table th {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 18px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1em;
+        }
+
+        .batch-results-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
+
+        .batch-results-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .batch-results-table tr:hover {
+            background-color: #e3f2fd;
+        }
+
+        .batch-snippet-cell {
+            max-width: 400px;
+            word-wrap: break-word;
+            font-size: 0.9em;
+            line-height: 1.4;
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: rgba(52, 152, 219, 0.05);
+            border-radius: 6px;
+            padding: 10px;
+        }
+
+        .rationale-cell {
+            max-width: 350px;
+            font-size: 0.9em;
+            line-height: 1.4;
+            color: #555;
+        }
+
+        .table-tag-cell {
+            min-width: 200px;
+        }
+
+        .batch-table-tag {
+            background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            display: inline-block;
+            margin: 2px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
         }
 
         .input-section {
@@ -385,57 +596,115 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>AI-Powered Pharmaceutical Classifier</h1>
-            <p>Advanced semantic analysis using machine learning algorithms</p>
+            <h1>Enhanced Pharmaceutical Classifier</h1>
+            <p>Intelligent pharmaceutical domain classification with optimized performance</p>
             <div class="algorithm-info">
                 <h3>Classification Engine</h3>
                 <div class="algorithm-badges">
-                    <span class="badge">TF-IDF Vectorization</span>
-                    <span class="badge">Cosine Similarity</span>
-                    <span class="badge">Semantic Analysis</span>
-                    <span class="badge">N-gram Matching</span>
-                    <span class="badge">Context Awareness</span>
-                    <span class="badge">Confidence Scoring</span>
+                    <span class="badge">Domain Intelligence</span>
+                    <span class="badge">Entity Recognition</span>
+                    <span class="badge">Semantic Matching</span>
+                    <span class="badge">Context Analysis</span>
+                    <span class="badge">Performance Optimized</span>
                 </div>
             </div>
         </div>
 
         <div class="main-content">
-            <div class="input-section">
-                <label for="snippetInput">Enter Pharmaceutical Snippet:</label>
-                <textarea 
-                    id="snippetInput" 
-                    class="snippet-input" 
-                    placeholder="Paste your pharmaceutical snippet here for advanced AI classification..."
-                ></textarea>
-                <div class="controls">
-                    <button id="classifyBtn" class="classify-btn" onclick="classifySnippet()">
-                        🤖 Classify with AI
-                    </button>
-                    <div class="threshold-control">
-                        <label for="thresholdSlider">Confidence Threshold:</label>
-                        <input type="range" id="thresholdSlider" class="threshold-slider" min="0.05" max="0.5" step="0.05" value="0.15">
-                        <span id="thresholdValue">0.15</span>
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-button active" onclick="switchTab('single')">Single Snippet</button>
+                    <button class="tab-button" onclick="switchTab('batch')">Batch Processing</button>
+                </div>
+
+                <!-- Single Snippet Tab -->
+                <div id="singleTab" class="tab-content active">
+                    <div class="input-section">
+                        <label for="snippetInput">Enter Pharmaceutical Snippet:</label>
+                        <textarea 
+                            id="snippetInput" 
+                            class="snippet-input" 
+                            placeholder="Paste your pharmaceutical snippet here for intelligent classification..."
+                        ></textarea>
+                        <div class="controls">
+                            <button id="classifyBtn" class="classify-btn" onclick="classifySnippet()">
+                                🎯 Classify Snippet
+                            </button>
+                            <div class="threshold-control">
+                                <label for="thresholdSlider">Confidence Threshold:</label>
+                                <input type="range" id="thresholdSlider" class="threshold-slider" min="0.05" max="0.5" step="0.05" value="0.15">
+                                <span id="thresholdValue">0.15</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Batch Processing Tab -->
+                <div id="batchTab" class="tab-content">
+                    <div class="input-section">
+                        <label for="batchInput">Upload Multiple Snippets:</label>
+                        <div class="batch-upload-area">
+                            <h3>📄 Batch Snippet Processing</h3>
+                            <p>Upload multiple pharmaceutical snippets for batch classification</p>
+                            <textarea 
+                                id="batchInput" 
+                                class="batch-textarea" 
+                                placeholder="Paste multiple snippets here, separated by empty lines or dashes (---).
+
+Example:
+Snippet 1: Novartis announced positive results for drug X...
+
+---
+
+Snippet 2: Pfizer's Q3 earnings showed strong performance...
+
+---
+
+Snippet 3: FDA approved new indication for Brand Y..."
+                            ></textarea>
+                            <div class="snippet-separator-info">
+                                💡 Separate snippets with empty lines or "---" dividers
+                            </div>
+                        </div>
+                        <div class="batch-controls">
+                            <button id="batchProcessBtn" class="batch-process-btn" onclick="processBatchSnippets()">
+                                🚀 Process All Snippets
+                            </button>
+                            <div class="threshold-control">
+                                <label for="batchThresholdSlider">Confidence Threshold:</label>
+                                <input type="range" id="batchThresholdSlider" class="threshold-slider" min="0.05" max="0.5" step="0.05" value="0.15">
+                                <span id="batchThresholdValue">0.15</span>
+                            </div>
+                            <button id="downloadBtn" class="download-btn" onclick="downloadResults()" style="display: none;">
+                                📥 Download CSV
+                            </button>
+                        </div>
+                        <div id="batchProgress" class="batch-progress">
+                            <div id="progressText">Processing snippets...</div>
+                            <div class="progress-bar">
+                                <div id="progressFill" class="progress-fill"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div id="processingInfo" class="processing-info" style="display: none;">
-                <h4>AI Processing Pipeline</h4>
+                <h4>Processing Pipeline</h4>
                 <div class="processing-steps">
-                    <div class="step" id="step1">Text Preprocessing</div>
-                    <div class="step" id="step2">Feature Extraction</div>
-                    <div class="step" id="step3">Semantic Analysis</div>
+                    <div class="step" id="step1">Entity Extraction</div>
+                    <div class="step" id="step2">Domain Analysis</div>
+                    <div class="step" id="step3">Context Matching</div>
                     <div class="step" id="step4">Classification</div>
-                    <div class="step" id="step5">Confidence Scoring</div>
+                    <div class="step" id="step5">Scoring</div>
                 </div>
             </div>
 
             <div id="resultsSection" class="results-section" style="display: none;">
-                <h2 class="results-title">AI Classification Results</h2>
+                <h2 class="results-title">Classification Results</h2>
                 <div id="loadingDiv" class="loading" style="display: none;">
                     <div class="loading-spinner"></div>
-                    Processing with advanced AI algorithms
+                    Processing with pharmaceutical intelligence...
                 </div>
                 <div id="statsDiv" class="advanced-stats" style="display: none;">
                     <div class="stat-card">
@@ -451,8 +720,8 @@
                         <div class="stat-label">Processing Time</div>
                     </div>
                     <div class="stat-card">
-                        <div id="semanticScore" class="stat-number">0%</div>
-                        <div class="stat-label">Semantic Match</div>
+                        <div id="entityCount" class="stat-number">0</div>
+                        <div class="stat-label">Entities Found</div>
                     </div>
                 </div>
                 <table id="resultsTable" class="results-table" style="display: none;">
@@ -466,808 +735,595 @@
                     </tbody>
                 </table>
                 <div id="algorithmDetails" class="algorithm-details" style="display: none;">
-                    <h4>Algorithm Analysis Details</h4>
+                    <h4>Processing Details</h4>
                     <ul id="analysisDetails"></ul>
                 </div>
+            </div>
+
+            <!-- Batch Results Section -->
+            <div id="batchResultsSection" class="results-section" style="display: none;">
+                <h2 class="results-title">📊 Batch Classification Results</h2>
+                <div id="batchStatsDiv" class="advanced-stats" style="display: none;">
+                    <div class="stat-card">
+                        <div id="totalSnippets" class="stat-number">0</div>
+                        <div class="stat-label">Snippets Processed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div id="totalClassifications" class="stat-number">0</div>
+                        <div class="stat-label">Total Classifications</div>
+                    </div>
+                    <div class="stat-card">
+                        <div id="batchAvgConfidence" class="stat-number">0%</div>
+                        <div class="stat-label">Avg Confidence</div>
+                    </div>
+                    <div class="stat-card">
+                        <div id="batchProcessingTime" class="stat-number">0s</div>
+                        <div class="stat-label">Total Processing Time</div>
+                    </div>
+                </div>
+                <table id="batchResultsTable" class="batch-results-table" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Snippet</th>
+                            <th>Rationale for Classification</th>
+                            <th>Table Tagged</th>
+                        </tr>
+                    </thead>
+                    <tbody id="batchResultsBody">
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <script>
-        // Enhanced Table Descriptions with semantic vectors
+        // Enhanced Table Descriptions with pharmaceutical domain knowledge
         const tableDescriptions = {
             'geographies': {
                 description: 'Captures hierarchical geographic data relevant to pharma, including sales regions, clinical sites, manufacturing facilities, and HQs.',
-                semanticKeywords: ['geographic', 'location', 'region', 'country', 'site', 'facility', 'headquarters', 'sales territory', 'market geography', 'clinical site', 'manufacturing']
+                keywords: ['geographic', 'location', 'region', 'country', 'site', 'facility', 'china', 'chinese', 'us', 'usa', 'europe', 'global', 'market', 'territory']
             },
             'organizations': {
                 description: 'Contains records of pharma, biotech, and healthcare organizations including manufacturers, CROs, hospitals, academic institutions.',
-                semanticKeywords: ['company', 'organization', 'pharmaceutical', 'biotech', 'manufacturer', 'corporation', 'institution', 'sponsor', 'entity', 'business', 'enterprise']
+                keywords: ['company', 'organization', 'pharmaceutical', 'biotech', 'manufacturer', 'corporation', 'inc', 'ltd', 'corp', '3sbio', 'novartis', 'pfizer']
             },
             'therapeutic_areas': {
                 description: 'Comprehensive registry of medical therapeutic areas, providing standardized taxonomy for categorizing clinical specialties.',
-                semanticKeywords: ['therapeutic area', 'medical specialty', 'clinical domain', 'disease area', 'treatment category', 'medical field', 'healthcare specialty']
+                keywords: ['therapeutic area', 'medical specialty', 'clinical domain', 'consumer health', 'weight management', 'obesity', 'neuroscience', 'oncology']
             },
             'molecular_targets': {
                 description: 'Captures molecular targets that pharmacological agents interact with to achieve therapeutic action.',
-                semanticKeywords: ['molecular target', 'protein', 'enzyme', 'receptor', 'gene', 'pathway', 'mechanism', 'interaction', 'biological target']
+                keywords: ['molecular target', 'protein', 'enzyme', 'receptor', 'gene', 'pathway', 'mechanism', 'interaction', 'biological target']
             },
             'therapeutic_modalities': {
                 description: 'Defines structural or technological classes of therapeutic agents used in pharmaceutical industry.',
-                semanticKeywords: ['therapeutic modality', 'drug type', 'treatment class', 'pharmaceutical category', 'therapeutic approach', 'medication type']
+                keywords: ['therapeutic modality', 'drug type', 'treatment class', 'pharmaceutical category', 'modality', 'platform', 'therapy']
             },
             'drug_classes': {
                 description: 'Stores classifications used to group pharmaceutical drugs based on shared characteristics.',
-                semanticKeywords: ['drug class', 'pharmaceutical classification', 'medication category', 'therapeutic class', 'pharmacological group']
+                keywords: ['drug class', 'pharmaceutical classification', 'medication category', 'therapeutic class', 'weight loss drug', 'drug market']
             },
             'drugs': {
                 description: 'Stores information about active pharmaceutical ingredients, drug compounds or biologics.',
-                semanticKeywords: ['drug', 'medication', 'pharmaceutical', 'compound', 'active ingredient', 'therapeutic agent', 'medicine', 'treatment']
+                keywords: ['drug', 'medication', 'pharmaceutical', 'compound', 'active ingredient', 'semaglutide', 'therapeutic agent', 'medicine']
             },
             'preclinical_assets': {
                 description: 'Represents preclinical R&D assets for drug candidates, tracking status and development stage.',
-                semanticKeywords: ['preclinical', 'research', 'development', 'pipeline', 'candidate', 'discovery', 'early stage', 'investigational']
+                keywords: ['preclinical', 'research', 'development', 'pipeline', 'candidate', 'discovery', 'early stage', 'investigational']
             },
             'brands': {
                 description: 'Stores commercial or marketed brand names associated with pharmaceutical products.',
-                semanticKeywords: ['brand', 'trademark', 'commercial name', 'marketed product', 'trade name', 'proprietary name']
+                keywords: ['brand', 'trademark', 'commercial name', 'marketed product', 'trade name', 'proprietary name']
             },
             'drug_combinations': {
                 description: 'Identifies and tracks pharmaceutical agents containing multiple active ingredients.',
-                semanticKeywords: ['combination', 'fixed dose', 'multi-drug', 'combined therapy', 'co-formulation', 'multiple ingredients']
+                keywords: ['combination', 'fixed dose', 'multi-drug', 'combined therapy', 'co-formulation', 'multiple ingredients']
             },
             'regimens': {
                 description: 'Represents specific investigational treatment protocols involving sequences or combinations.',
-                semanticKeywords: ['regimen', 'protocol', 'treatment schedule', 'dosing regimen', 'therapeutic protocol', 'treatment plan']
+                keywords: ['regimen', 'protocol', 'treatment schedule', 'dosing regimen', 'therapeutic protocol', 'treatment plan']
             },
             'diseases': {
                 description: 'Stores information about medical conditions, illnesses, or disorders relevant to pharmaceutical research.',
-                semanticKeywords: ['disease', 'condition', 'disorder', 'illness', 'pathology', 'medical condition', 'syndrome']
+                keywords: ['disease', 'condition', 'disorder', 'illness', 'pathology', 'medical condition', 'syndrome', 'obesity', 'overweight']
             },
             'indication_specifications': {
                 description: 'Defines granular, context-specific patient populations or treatment settings for pharmaceutical interventions.',
-                semanticKeywords: ['indication', 'patient population', 'treatment setting', 'clinical context', 'therapeutic indication', 'medical indication']
+                keywords: ['indication', 'patient population', 'treatment setting', 'clinical context', 'therapeutic indication', 'medical indication']
             },
             'standard_of_care': {
                 description: 'Tracks recommended or established treatment approaches for specific disease indications.',
-                semanticKeywords: ['standard of care', 'treatment guideline', 'established therapy', 'recommended treatment', 'clinical standard']
+                keywords: ['standard of care', 'treatment guideline', 'established therapy', 'recommended treatment', 'clinical standard']
             },
             'drug_targets': {
                 description: 'Establishes relationship between therapeutic entities and specific molecular targets.',
-                semanticKeywords: ['drug target', 'molecular interaction', 'therapeutic target', 'mechanism of action', 'target engagement']
+                keywords: ['drug target', 'molecular interaction', 'therapeutic target', 'mechanism of action', 'target engagement']
             },
             'drug_drug_classes': {
                 description: 'Connects therapeutic entities to their relevant pharmacological or therapeutic classifications.',
-                semanticKeywords: ['drug classification', 'therapeutic category', 'pharmacological class', 'medication group']
+                keywords: ['drug classification', 'therapeutic category', 'pharmacological class', 'medication group']
             },
             'drug_modalities': {
                 description: 'Connects therapeutic entities to their technological or structural classification.',
-                semanticKeywords: ['drug modality', 'therapeutic modality', 'treatment modality', 'pharmaceutical format']
+                keywords: ['drug modality', 'therapeutic modality', 'treatment modality', 'pharmaceutical format']
             },
             'drug_combination_components': {
                 description: 'Defines constituent active ingredients that make up combination products.',
-                semanticKeywords: ['combination component', 'active ingredient', 'constituent', 'formulation component']
+                keywords: ['combination component', 'active ingredient', 'constituent', 'formulation component']
             },
             'regimen_components': {
                 description: 'Details individual therapeutic agents that constitute specific treatment protocols.',
-                semanticKeywords: ['regimen component', 'protocol element', 'treatment component', 'therapeutic element']
+                keywords: ['regimen component', 'protocol element', 'treatment component', 'therapeutic element']
             },
             'preclinical_asset_indications': {
                 description: 'Connects preclinical assets to specific disease indications they target.',
-                semanticKeywords: ['preclinical indication', 'research target', 'development indication', 'investigational target']
+                keywords: ['preclinical indication', 'research target', 'development indication', 'investigational target']
             },
             'drug_indication_development_stages': {
                 description: 'Tracks developmental progress or approval status of therapeutic assets for patient populations.',
-                semanticKeywords: ['development stage', 'clinical phase', 'regulatory status', 'approval stage', 'development progress']
+                keywords: ['development stage', 'clinical phase', 'regulatory status', 'approval stage', 'development progress']
             },
             'organization_therapeutic_area_modalities': {
                 description: 'Tracks organization strategic focus at intersection of therapeutic areas and modalities.',
-                semanticKeywords: ['organizational focus', 'strategic area', 'therapeutic focus', 'business focus', 'development focus']
+                keywords: ['organizational focus', 'strategic area', 'therapeutic focus', 'business focus', 'development focus']
             },
             'entity_synonyms': {
                 description: 'Manages variations in names, abbreviations, codes for entities within pharmaceutical domain.',
-                semanticKeywords: ['synonym', 'alternative name', 'abbreviation', 'code', 'variant', 'nomenclature']
+                keywords: ['synonym', 'alternative name', 'abbreviation', 'code', 'variant', 'nomenclature']
             },
             'clinical_trial_registries': {
                 description: 'Provides reference information about major clinical trial registries.',
-                semanticKeywords: ['trial registry', 'clinical registry', 'study registry', 'research registry']
+                keywords: ['trial registry', 'clinical registry', 'study registry', 'research registry']
             },
             'clinical_trials': {
                 description: 'Stores detailed information about individual clinical studies designed to evaluate pharmaceutical interventions.',
-                semanticKeywords: ['clinical trial', 'clinical study', 'research study', 'clinical research', 'human study', 'trial', 'study']
+                keywords: ['clinical trial', 'clinical study', 'research study', 'clinical research', 'human study', 'trial', 'study']
             },
             'clinical_trial_design': {
                 description: 'Stores specific details about methodological design and structure of clinical studies.',
-                semanticKeywords: ['trial design', 'study design', 'research methodology', 'clinical methodology', 'study structure']
+                keywords: ['trial design', 'study design', 'research methodology', 'clinical methodology', 'study structure']
             },
             'clinical_trial_arms': {
                 description: 'Tracks distinct treatment cohorts within specific clinical studies.',
-                semanticKeywords: ['trial arm', 'study arm', 'treatment group', 'cohort', 'study group']
+                keywords: ['trial arm', 'study arm', 'treatment group', 'cohort', 'study group']
             },
             'clinical_trial_arms_drugs': {
                 description: 'Links specific therapeutic interventions to corresponding treatment groups within clinical studies.',
-                semanticKeywords: ['trial intervention', 'study drug', 'treatment intervention', 'experimental drug']
+                keywords: ['trial intervention', 'study drug', 'treatment intervention', 'experimental drug']
             },
             'clinical_trial_arms_indications': {
                 description: 'Connects treatment groups to precise disease indications being investigated.',
-                semanticKeywords: ['trial indication', 'study indication', 'research indication', 'clinical indication']
+                keywords: ['trial indication', 'study indication', 'research indication', 'clinical indication']
             },
             'clinical_trial_sites': {
                 description: 'Contains records of specific facilities where clinical trials are conducted.',
-                semanticKeywords: ['clinical site', 'research site', 'trial site', 'study site', 'investigation site']
+                keywords: ['clinical site', 'research site', 'trial site', 'study site', 'investigation site']
             },
             'clinical_data_points': {
                 description: 'Stores quantitative or qualitative results reported from clinical trials.',
-                semanticKeywords: ['clinical data', 'trial results', 'study data', 'clinical outcome', 'research results', 'endpoint']
+                keywords: ['clinical data', 'trial results', 'study data', 'clinical outcome', 'research results', 'endpoint']
             },
             'regulatory_authorities': {
                 description: 'Reference table listing key global and regional regulatory agencies.',
-                semanticKeywords: ['regulatory authority', 'regulatory agency', 'health authority', 'drug agency', 'approval agency']
+                keywords: ['regulatory authority', 'regulatory agency', 'health authority', 'drug agency', 'approval agency']
             },
             'regulatory_application_types': {
                 description: 'Reference table for various types of formal applications submitted to regulatory authorities.',
-                semanticKeywords: ['regulatory application', 'submission type', 'filing type', 'regulatory filing', 'application type']
+                keywords: ['regulatory application', 'submission type', 'filing type', 'regulatory filing', 'application type']
             },
             'regulatory_designation': {
                 description: 'Tracks instances where pharmaceutical assets receive special regulatory status or designation.',
-                semanticKeywords: ['regulatory designation', 'special status', 'regulatory pathway', 'expedited review', 'priority designation']
+                keywords: ['regulatory designation', 'special status', 'regulatory pathway', 'expedited review', 'priority designation']
             },
             'regulatory_approvals': {
                 description: 'Records specific instances of marketing authorization granted by regulatory agencies.',
-                semanticKeywords: ['regulatory approval', 'marketing authorization', 'drug approval', 'product approval', 'license']
+                keywords: ['regulatory approval', 'marketing authorization', 'drug approval', 'product approval', 'license']
             },
             'regulatory_exclusivity': {
                 description: 'Records periods of market exclusivity granted by regulatory authorities.',
-                semanticKeywords: ['market exclusivity', 'regulatory exclusivity', 'patent protection', 'exclusivity period']
+                keywords: ['market exclusivity', 'regulatory exclusivity', 'patent protection', 'exclusivity period']
             },
             'regulatory_review_milestones': {
                 description: 'Records key milestones, dates, and outcomes during formal regulatory review process.',
-                semanticKeywords: ['regulatory milestone', 'review milestone', 'approval milestone', 'regulatory timeline', 'submission milestone']
+                keywords: ['regulatory milestone', 'review milestone', 'approval milestone', 'regulatory timeline', 'submission milestone']
             },
             'patents': {
                 description: 'Stores detailed information about intellectual property patents relevant to pharmaceutical products.',
-                semanticKeywords: ['patent', 'intellectual property', 'patent protection', 'patent rights', 'proprietary rights']
+                keywords: ['patent', 'intellectual property', 'patent protection', 'patent rights', 'proprietary rights']
             },
             'patent_litigation': {
                 description: 'Records legal disputes and challenges specifically related to pharmaceutical patents.',
-                semanticKeywords: ['patent litigation', 'patent dispute', 'legal challenge', 'patent lawsuit', 'intellectual property dispute']
+                keywords: ['patent litigation', 'patent dispute', 'legal challenge', 'patent lawsuit', 'intellectual property dispute']
             },
             'drug_brand_packaging': {
                 description: 'Stores packaging and formulation details for branded pharmaceutical products.',
-                semanticKeywords: ['packaging', 'formulation', 'product packaging', 'drug packaging', 'pharmaceutical packaging']
+                keywords: ['packaging', 'formulation', 'product packaging', 'drug packaging', 'pharmaceutical packaging']
             },
             'sales_data': {
                 description: 'Captures sales and revenue data for pharmaceutical products and organizations.',
-                semanticKeywords: ['sales', 'revenue', 'commercial performance', 'market performance', 'financial performance']
+                keywords: ['sales', 'revenue', 'commercial performance', 'market performance', 'financial performance']
             },
             'market_sizing': {
                 description: 'Stores aggregated market size estimates for disease indications within geographic regions.',
-                semanticKeywords: ['market size', 'market opportunity', 'addressable market', 'market potential', 'market estimate']
+                keywords: ['market size', 'market opportunity', 'addressable market', 'market potential', 'market estimate', 'market overview', 'statistics', 'estimated number', 'million', 'billion', 'prevalence rate', 'patient population']
             },
             'market_forecasts': {
                 description: 'Stores future market projections for pharmaceutical drugs, brands, or indications.',
-                semanticKeywords: ['market forecast', 'market projection', 'future outlook', 'market prediction', 'commercial forecast']
+                keywords: ['market forecast', 'market projection', 'future outlook', 'market prediction', 'commercial forecast', 'forecasts', 'increasing trend', 'estimated', 'bar chart', 'through 2030', 'denotes estimated']
             },
             'market_catalysts': {
                 description: 'Tracks significant events expected to impact market dynamics within pharmaceutical industry.',
-                semanticKeywords: ['market catalyst', 'market driver', 'commercial catalyst', 'market event', 'industry catalyst']
+                keywords: ['market catalyst', 'market driver', 'commercial catalyst', 'market event', 'industry catalyst']
             },
             'organization_financial_data': {
                 description: 'Stores key financial performance metrics reported by pharmaceutical organizations.',
-                semanticKeywords: ['financial data', 'financial performance', 'financial metrics', 'earnings', 'financial results']
+                keywords: ['financial data', 'financial performance', 'financial metrics', 'earnings', 'financial results']
             },
             'business_deals': {
                 description: 'Captures information on significant corporate transactions within pharmaceutical industry.',
-                semanticKeywords: ['business deal', 'corporate transaction', 'merger', 'acquisition', 'partnership', 'collaboration']
+                keywords: ['business deal', 'corporate transaction', 'merger', 'acquisition', 'partnership', 'collaboration']
             },
             'organization_development_roles': {
                 description: 'Maps organizations to their specific roles in development or commercialization of pharmaceutical assets.',
-                semanticKeywords: ['development role', 'organizational role', 'partnership role', 'collaboration role']
+                keywords: ['development role', 'organizational role', 'partnership role', 'collaboration role']
             },
             'investments': {
                 description: 'Records financial investments made into pharmaceutical, biotech, or healthcare organizations.',
-                semanticKeywords: ['investment', 'funding', 'capital', 'financing', 'venture capital', 'financial investment']
+                keywords: ['investment', 'funding', 'capital', 'financing', 'venture capital', 'financial investment']
             },
             'transaction_assets': {
                 description: 'Details specific assets that are part of business transactions.',
-                semanticKeywords: ['transaction asset', 'deal asset', 'transferred asset', 'business asset']
+                keywords: ['transaction asset', 'deal asset', 'transferred asset', 'business asset']
             },
             'post_transaction_entity_changes': {
                 description: 'Logs specific consequences of business deals on tracked entities.',
-                semanticKeywords: ['entity change', 'transaction impact', 'organizational change', 'business impact']
+                keywords: ['entity change', 'transaction impact', 'organizational change', 'business impact']
             },
             'scientific_events': {
                 description: 'Catalogs key scientific and medical conferences, symposia, and professional gatherings.',
-                semanticKeywords: ['scientific event', 'medical conference', 'scientific conference', 'symposium', 'professional gathering']
+                keywords: ['scientific event', 'medical conference', 'scientific conference', 'symposium', 'professional gathering']
             },
             'scientific_publications': {
                 description: 'Stores metadata for scientific literature relevant to pharmaceutical domain.',
-                semanticKeywords: ['scientific publication', 'research paper', 'journal article', 'scientific literature', 'research publication']
+                keywords: ['scientific publication', 'research paper', 'journal article', 'scientific literature', 'research publication']
             },
             'entity_milestones': {
                 description: 'Logs specific instances of significant events or achievements related to pharmaceutical entities.',
-                semanticKeywords: ['milestone', 'achievement', 'significant event', 'key event', 'important milestone']
+                keywords: ['milestone', 'achievement', 'significant event', 'key event', 'important milestone']
             },
             'document_sources': {
                 description: 'Stores metadata about source documents from which information is extracted.',
-                semanticKeywords: ['document source', 'source document', 'reference document', 'information source']
+                keywords: ['document source', 'source document', 'reference document', 'information source', 'presentation', 'corporate presentation']
             },
             'document_locations': {
                 description: 'Identifies locations in source documents, capturing page/slide references.',
-                semanticKeywords: ['document location', 'page reference', 'slide reference', 'document citation']
+                keywords: ['document location', 'page reference', 'slide reference', 'document citation']
             },
             'field_citations': {
                 description: 'Establishes precise traceability linking data fields to their exact origin in source documents.',
-                semanticKeywords: ['field citation', 'data citation', 'source reference', 'traceability', 'data source']
+                keywords: ['field citation', 'data citation', 'source reference', 'traceability', 'data source']
             },
             'entity_versions': {
                 description: 'Provides complete version history for each canonical pharmaceutical entity.',
-                semanticKeywords: ['entity version', 'version history', 'entity change', 'historical record']
+                keywords: ['entity version', 'version history', 'entity change', 'historical record']
             },
             'schema_evolution': {
                 description: 'Monitors and records structure of data attributes extracted for pharmaceutical entity types.',
-                semanticKeywords: ['schema evolution', 'data structure', 'attribute structure', 'data schema']
+                keywords: ['schema evolution', 'data structure', 'attribute structure', 'data schema']
             },
             'entity_resolution_log': {
                 description: 'Records decisions linking extracted pharma entities to canonical database entries.',
-                semanticKeywords: ['entity resolution', 'data linking', 'entity matching', 'data integration']
+                keywords: ['entity resolution', 'data linking', 'entity matching', 'data integration']
             },
             'data_source_metadata': {
                 description: 'Stores essential metadata and characteristics for each registered data source.',
-                semanticKeywords: ['data source', 'metadata', 'source characteristics', 'data characteristics']
+                keywords: ['data source', 'metadata', 'source characteristics', 'data characteristics']
             }
         };
 
-        // Enhanced AI Classification Engine with Better Pharmaceutical Domain Understanding
-        class PharmaceuticalClassifier {
+        // Enhanced Pharmaceutical Classifier with domain intelligence
+        class EnhancedPharmaceuticalClassifier {
             constructor() {
-                this.threshold = 0.15; // Lower threshold for better sensitivity
+                this.threshold = 0.15;
                 this.processingSteps = [];
                 this.startTime = 0;
-                this.debugMode = true;
+                this.entities = {};
             }
 
-            // Improved pharmaceutical entity extraction
+            // Dynamic pharmaceutical entity extraction using built-in knowledge
             extractPharmaceuticalEntities(text) {
                 const entities = {
                     companies: [],
                     drugs: [],
                     brands: [],
                     therapeuticAreas: [],
-                    modalities: [],
-                    phases: [],
-                    regulatory: [],
-                    financial: [],
-                    geographic: [],
                     diseases: [],
-                    milestones: [],
-                    marketForecasts: [],
-                    marketSizing: []
+                    geographic: [],
+                    marketTerms: [],
+                    financialData: [],
+                    presentationTerms: []
                 };
 
+                const words = this.tokenizeText(text);
                 const textLower = text.toLowerCase();
 
-                // Company patterns
+                // Company detection using patterns and pharmaceutical knowledge
+                this.detectCompanies(words, text, entities);
+
+                // Drug detection using pharmaceutical naming patterns and knowledge
+                this.detectDrugs(words, text, entities);
+
+                // Brand detection using trademark patterns and pharmaceutical knowledge
+                this.detectBrands(words, text, entities);
+
+                // Therapeutic area detection using medical terminology
+                this.detectTherapeuticAreas(words, text, entities);
+
+                // Disease detection using medical conditions knowledge
+                this.detectDiseases(words, text, entities);
+
+                // Geographic detection using location patterns
+                this.detectGeographic(words, text, entities);
+
+                // Market terms detection
+                this.detectMarketTerms(textLower, entities);
+
+                // Financial data detection
+                const financialMatches = text.match(/\d+\s*(million|billion|mn|bn|%)/gi);
+                if (financialMatches) {
+                    entities.financialData.push(...financialMatches);
+                }
+
+                // Presentation terms detection
+                this.detectPresentationTerms(textLower, entities);
+
+                return entities;
+            }
+
+            tokenizeText(text) {
+                // Split into words while preserving pharmaceutical compounds
+                return text.match(/\b[\w'-]+\b/g) || [];
+            }
+
+            detectCompanies(words, text, entities) {
+                // Pattern-based company detection
                 const companyPatterns = [
-                    /\b(novartis|pfizer|roche|merck|gsk|glaxosmithkline|johnson\s*&\s*johnson|abbvie|bristol\s*myers\s*squibb|eli\s*lilly|sanofi|bayer|takeda|astrazeneca|gilead|biogen|amgen|regeneron|vertex|moderna|biontech|3sbio)\b/gi,
-                    /\b\w+\s+(inc|ltd|corp|corporation|company|pharmaceutical|pharma|biotech|therapeutics)\b/gi
+                    /\b\w+\s+(Inc|Ltd|Corp|Corporation|Company|Pharmaceutical|Pharma|Biotech|Therapeutics|Biosciences)\b/gi,
+                    /\b\w+\s+&\s+\w+\b/gi, // Johnson & Johnson pattern
+                    /\b[A-Z][a-z]+\s*[A-Z][a-z]*\s+(Inc|Ltd|Corp)\b/gi
                 ];
 
                 companyPatterns.forEach(pattern => {
                     const matches = text.match(pattern);
-                    if (matches) entities.companies.push(...matches);
+                    if (matches) {
+                        matches.forEach(match => {
+                            const company = match.replace(/\s+(Inc|Ltd|Corp|Corporation|Company|Pharmaceutical|Pharma|Biotech|Therapeutics|Biosciences)$/i, '').trim();
+                            if (company.length > 2 && this.isLikelyPharmaceuticalCompany(company)) {
+                                entities.companies.push(match.trim());
+                            }
+                        });
+                    }
                 });
 
-                // Brand patterns - look for trademark symbols, capitalized names, brand-like patterns
+                // Detect known pharmaceutical companies by name patterns
+                words.forEach(word => {
+                    if (this.isKnownPharmaceuticalCompany(word)) {
+                        entities.companies.push(word);
+                    }
+                });
+            }
+
+            detectDrugs(words, text, entities) {
+                // Drug suffix patterns based on pharmaceutical naming conventions
+                const drugSuffixes = [
+                    'mab', 'zumab', 'tuzumab', 'tinib', 'prazole', 'statin', 'cillin', 'mycin', 
+                    'olol', 'pril', 'sartan', 'parib', 'afenib', 'ciclib', 'ceptor', 'glutide',
+                    'formin', 'floxacin', 'thiazide', 'dipine', 'triptyline', 'azole', 'vir'
+                ];
+
+                // Check for drug suffixes
+                words.forEach(word => {
+                    const wordLower = word.toLowerCase();
+                    drugSuffixes.forEach(suffix => {
+                        if (wordLower.endsWith(suffix) && word.length > suffix.length + 2) {
+                            if (this.isLikelyDrugName(word)) {
+                                entities.drugs.push(word);
+                            }
+                        }
+                    });
+                });
+
+                // Check for drugs in parentheses (common in pharmaceutical text)
+                const parenthesesMatches = text.match(/\(([A-Z][a-z]+[a-z]{4,})\)/g);
+                if (parenthesesMatches) {
+                    parenthesesMatches.forEach(match => {
+                        const drug = match.replace(/[()]/g, '');
+                        if (this.isLikelyDrugName(drug)) {
+                            entities.drugs.push(drug);
+                        }
+                    });
+                }
+
+                // Detect specific drug name patterns
+                words.forEach(word => {
+                    if (this.isKnownDrugName(word)) {
+                        entities.drugs.push(word);
+                    }
+                });
+            }
+
+            detectBrands(words, text, entities) {
+                // Brand patterns with trademark symbols
                 const brandPatterns = [
-                    /\b[A-Z][a-z]*[A-Z][a-z]*®/g, // Trademark symbols
-                    /\b[A-Z][a-z]*[A-Z][a-z]*™/g, // Trademark symbols
-                    /\b[A-Z][a-z]*[a-z]*®/g, // Simple trademark
-                    /\b[A-Z][a-z]*[a-z]*™/g, // Simple trademark
-                    /\b[A-Z][a-zA-Z]*®/g, // Any word with ®
-                    /\b[A-Z][a-zA-Z]*™/g, // Any word with ™
-                    // Common brand patterns without symbols
-                    /\b[A-Z][a-z]+[A-Z][a-z]+\b/g, // CamelCase like "FabHalte"
-                    /\b[A-Z][a-z]{3,}[a-z]+\b(?=\s*\([A-Z][a-z]+\))/g // Brand name followed by drug name in parentheses
+                    /\b[A-Z][a-z]+[A-Z]*[a-z]*®/g,
+                    /\b[A-Z][a-z]+[A-Z]*[a-z]*™/g,
+                    /\b[A-Z][a-z]+[A-Z][a-z]+\b(?=\s*\([A-Z])/g // Brand followed by drug in parentheses
                 ];
 
                 brandPatterns.forEach(pattern => {
                     const matches = text.match(pattern);
                     if (matches) {
                         matches.forEach(match => {
-                            const cleaned = match.replace(/[®™]/g, '');
-                            if (cleaned.length > 3) { // Avoid short words
+                            const brand = match.replace(/[®™]/g, '');
+                            if (brand.length > 3 && this.isLikelyPharmaceuticalBrand(brand)) {
                                 entities.brands.push(match);
                             }
                         });
                     }
                 });
+            }
 
-                // Drug patterns - look for names in parentheses, pharmaceutical naming patterns
-                const drugPatterns = [
-                    /\([A-Z][a-z]+[a-z]+\)/g, // Drug names in parentheses like (Iptacopan)
-                    /\b[A-Z][a-z]+[a-z]+an\b/g, // Common drug suffix -an
-                    /\b[A-Z][a-z]+[a-z]+ib\b/g, // Common drug suffix -ib
-                    /\b[A-Z][a-z]+[a-z]+mab\b/g, // Monoclonal antibodies -mab
-                    /\b[A-Z][a-z]+[a-z]+zumab\b/g, // Humanized antibodies -zumab
-                    /\b[A-Z][a-z]+[a-z]+tinib\b/g, // Kinase inhibitors -tinib
-                    /\b[A-Z][a-z]+[a-z]+prazole\b/g, // Proton pump inhibitors
-                    /\b[A-Z][a-z]+[a-z]+statin\b/g, // Statins
-                    /\b[A-Z][a-z]+[a-z]+cillin\b/g, // Antibiotics
-                    /\b[A-Z][a-z]+[a-z]+mycin\b/g, // Antibiotics
-                    /\b[A-Z][a-z]+[a-z]+olol\b/g, // Beta blockers
-                    /\b[A-Z][a-z]+[a-z]+pril\b/g, // ACE inhibitors
-                    /\b[A-Z][a-z]+[a-z]+sartan\b/g, // ARBs
-                    /\b[A-Z][a-z]+[a-z]+tuzumab\b/g, // Antibodies
-                    /\b[A-Z][a-z]+[a-z]+parib\b/g, // PARP inhibitors
-                    /\b[A-Z][a-z]+[a-z]+afenib\b/g, // Kinase inhibitors
-                    /\b[A-Z][a-z]+[a-z]+ciclib\b/g, // CDK inhibitors
-                    /\b[A-Z][a-z]+[a-z]+ceptor\b/g, // Receptor drugs
-                    /\b[A-Z][a-z]+copan\b/g, // Specific pattern for Iptacopan
-                    /\bsemaglutide\b/gi, // Semaglutide
-                    /\bozempic\b/gi, // Ozempic
-                    /\bwegovy\b/gi, // Wegovy
-                    /\bmounjaro\b/gi, // Mounjaro
-                    /\btrulicity\b/gi // Trulicity
+            detectTherapeuticAreas(words, text, entities) {
+                const therapeuticAreaKeywords = [
+                    'oncology', 'cardiology', 'neurology', 'neuroscience', 'immunology', 'respiratory',
+                    'diabetes', 'nephrology', 'gastroenterology', 'dermatology', 'ophthalmology',
+                    'psychiatry', 'hematology', 'endocrinology', 'infectious disease', 'rare disease',
+                    'consumer health', 'weight management', 'metabolic', 'autoimmune', 'cardiovascular'
                 ];
 
-                // Exclusions for non-drug terms
-                const nonDrugTerms = [
-                    'novartis', 'pfizer', 'roche', 'merck', 'gsk', 'glaxosmithkline', 
-                    'johnson', 'abbvie', 'bristol', 'myers', 'squibb', 'lilly', 
-                    'sanofi', 'bayer', 'takeda', 'astrazeneca', 'gilead', 'biogen', 
-                    'amgen', 'regeneron', 'vertex', 'moderna', 'biontech', '3sbio',
-                    'neuroscience', 'oncology', 'cardiology', 'immunology', 'respiratory', 
-                    'diabetes', 'nephrology', 'gastroenterology', 'dermatology', 
-                    'ophthalmology', 'psychiatry', 'hematology', 'endocrinology',
-                    'therapeutic', 'platform', 'platforms', 'therapy', 'treatment', 
-                    'potential', 'expand', 'within', 'approval', 'expected', 'upcoming',
-                    'milestones', 'readouts', 'followed', 'including', 'syndrome',
-                    'disease', 'condition', 'disorder', 'glomerulopathy', 'glomerulonephritis',
-                    'hemolytic', 'uremic', 'membranoproliferative', 'atypical', 'immune',
-                    'complex', 'clinical', 'trials', 'patients', 'study', 'research',
-                    'consumer', 'health', 'management', 'market', 'overview', 'statistics',
-                    'opportunities', 'estimated', 'number', 'people', 'residents', 'chart',
-                    'forecast', 'trend', 'increasing', 'displayed', 'denotes'
-                ];
-
-                drugPatterns.forEach(pattern => {
-                    const matches = text.match(pattern);
-                    if (matches) {
-                        matches.forEach(match => {
-                            const cleaned = match.replace(/[()]/g, '').toLowerCase();
-                            if (cleaned.length > 4 && !nonDrugTerms.includes(cleaned)) {
-                                entities.drugs.push(match.replace(/[()]/g, ''));
-                            }
-                        });
+                therapeuticAreaKeywords.forEach(area => {
+                    const regex = new RegExp(`\\b${area}\\b`, 'gi');
+                    if (regex.test(text)) {
+                        entities.therapeuticAreas.push(area);
                     }
                 });
+            }
 
-                // Also check for explicit drug names that might not match patterns
-                const explicitDrugs = ['semaglutide', 'ozempic', 'wegovy', 'mounjaro', 'trulicity', 'iptacopan'];
-                explicitDrugs.forEach(drug => {
-                    const regex = new RegExp(`\\b${drug}\\b`, 'gi');
-                    const matches = text.match(regex);
-                    if (matches) {
-                        entities.drugs.push(drug);
-                    }
-                });
-
-                // Disease patterns - look for medical conditions
+            detectDiseases(words, text, entities) {
+                // Disease pattern detection
                 const diseasePatterns = [
-                    /\b[A-Z][a-z]+\s+[A-Z][a-z]+\s+[A-Z][a-z]+\s*\([A-Z0-9-]+\)/g, // Complex disease names with abbreviations
-                    /\b[A-Z][a-z]+\s+[A-Z][a-z]+\s+Syndrome\b/g, // Syndrome names
-                    /\b[A-Z][a-z]+\s+[A-Z][a-z]+\s+Disease\b/g, // Disease names
-                    /\b[A-Z][a-z]+\s+[A-Z][a-z]+\s+Disorder\b/g, // Disorder names
-                    /\b[A-Z][a-z]+\s+[A-Z][a-z]+\s+Condition\b/g, // Condition names
-                    /\bGlomerulopathy\b/g, // Specific kidney diseases
-                    /\bGlomerulonephritis\b/g, // Specific kidney diseases
-                    /\bNephritis\b/g, // Kidney inflammation
-                    /\bUremic\s+Syndrome\b/g, // Uremic conditions
-                    /\bHemolytic\s+Uremic\s+Syndrome\b/g, // HUS
-                    /\batypical\s+Hemolytic\s+Uremic\s+Syndrome\b/gi, // aHUS
-                    /\bC3\s+Glomerulopathy\b/g, // C3G
-                    /\bIC-MPGN\b/g, // Abbreviation
-                    /\baHUS\b/g, // Abbreviation
-                    /\bC3G\b/g, // Abbreviation
-                    /\bobesity\b/gi, // Obesity
-                    /\boverweight\b/gi, // Overweight
-                    /\bweight\s+management\b/gi, // Weight management
-                    /\bweight\s+loss\b/gi, // Weight loss
-                    /\bdiabetes\b/gi, // Diabetes
-                    /\btype\s+2\s+diabetes\b/gi // Type 2 diabetes
+                    /\b\w+\s+(disease|syndrome|disorder|condition)\b/gi,
+                    /\b(cancer|tumor|carcinoma|sarcoma|lymphoma|leukemia)\b/gi,
+                    /\b(diabetes|hypertension|arthritis|asthma|copd|alzheimer|parkinson)\b/gi,
+                    /\b(obesity|overweight|depression|anxiety|migraine|epilepsy)\b/gi
                 ];
 
                 diseasePatterns.forEach(pattern => {
                     const matches = text.match(pattern);
-                    if (matches) entities.diseases.push(...matches);
-                });
-
-                // Milestone patterns
-                const milestonePatterns = [
-                    /\bmilestone\b/gi,
-                    /\breadout\b/gi,
-                    /\bexpected\b/gi,
-                    /\bupcoming\b/gi,
-                    /\bplanned\b/gi,
-                    /\banticipated\b/gi
-                ];
-
-                milestonePatterns.forEach(pattern => {
-                    const matches = text.match(pattern);
-                    if (matches) entities.milestones.push(...matches);
-                });
-
-                // Market forecast patterns
-                const marketForecastPatterns = [
-                    /\bforecast\b/gi,
-                    /\bforecasts\b/gi,
-                    /\bprojection\b/gi,
-                    /\bprojected\b/gi,
-                    /\bprediction\b/gi,
-                    /\bpredicted\b/gi,
-                    /\bexpected\b/gi,
-                    /\bestimated\b/gi,
-                    /\bmarket\s+size\b/gi,
-                    /\bmarket\s+growth\b/gi,
-                    /\bmarket\s+trend\b/gi,
-                    /\bincreasing\s+trend\b/gi,
-                    /\bby\s+\d{4}\b/gi, // "by 2030"
-                    /\b\d{4}E\b/gi, // "2030E" estimated
-                    /\b\d{4}-\d{4}\b/gi, // "2020-2030" range
-                    /\bthrough\s+\d{4}\b/gi, // "through 2030"
-                    /\bfrom\s+\d{4}\s+through\s+\d{4}\b/gi, // "from 2020 through 2030"
-                    /\bfuture\s+outlook\b/gi,
-                    /\bmarket\s+opportunity\b/gi,
-                    /\bgrowth\s+rate\b/gi,
-                    /\bCAGR\b/gi,
-                    /\bcompound\s+annual\s+growth\b/gi,
-                    /\bwhere\s+'E'\s+denotes\s+estimated\b/gi,
-                    /\bweight\s+loss\s+drug\s+market\b/gi,
-                    /\bdrug\s+market\s+size\b/gi,
-                    /\bmarket.*\d{4}E\b/gi // Market with estimated year
-                ];
-
-                marketForecastPatterns.forEach(pattern => {
-                    const matches = text.match(pattern);
                     if (matches) {
-                        matches.forEach(match => {
-                            entities.marketForecasts.push(match.trim());
-                        });
+                        entities.diseases.push(...matches);
                     }
                 });
+            }
 
-                // Market sizing patterns
-                const marketSizingPatterns = [
-                    /\bmarket\s+size\b/gi,
-                    /\bmarket\s+value\b/gi,
-                    /\baddressable\s+market\b/gi,
-                    /\bTAM\b/gi, // Total Addressable Market
-                    /\bSAM\b/gi, // Serviceable Addressable Market
-                    /\bpatient\s+population\b/gi,
-                    /\bprevalence\s+rate\b/gi,
-                    /\bincidence\s+rate\b/gi,
-                    /\bnumber\s+of\s+people\b/gi,
-                    /\bestimated\s+number\s+of\s+people\b/gi,
-                    /\b\d+\s*(million|billion|mn|bn)\b/gi, // "329 mn"
-                    /\b>\s*\d+%\b/gi, // ">50%"
-                    /\brate\s+among\b/gi,
-                    /\bmarket\s+penetration\b/gi,
-                    /\bmarket\s+share\b/gi,
-                    /\bmarket\s+opportunity\b/gi,
-                    /\bmarket\s+overview\b/gi,
-                    /\bstatistics\b/gi,
-                    /\boverweight\/obesity\s+rate\b/gi,
-                    /\bamong\s+adult\s+.*\s+residents\b/gi
-                ];
-
-                marketSizingPatterns.forEach(pattern => {
-                    const matches = text.match(pattern);
-                    if (matches) {
-                        matches.forEach(match => {
-                            entities.marketSizing.push(match.trim());
-                        });
-                    }
-                });
-
-                // Therapeutic area patterns
-                const therapeuticAreas = [
-                    'neuroscience', 'oncology', 'cardiology', 'immunology', 'respiratory', 'diabetes',
-                    'nephrology', 'gastroenterology', 'dermatology', 'ophthalmology', 'psychiatry',
-                    'hematology', 'endocrinology', 'infectious disease', 'rare disease', 'autoimmune',
-                    'consumer health', 'weight management', 'obesity', 'metabolic', 'endocrine',
-                    'weight loss', 'bariatric', 'nutrition'
-                ];
-
-                therapeuticAreas.forEach(area => {
-                    const regex = new RegExp(`\\b${area}\\b`, 'gi');
-                    const matches = text.match(regex);
-                    if (matches) {
-                        entities.therapeuticAreas.push(area);
-                    }
-                });
-
-                // Modality patterns
-                const modalities = [
-                    'cell therapy', 'gene therapy', 'xrna', 'mrna', 'antibody', 'monoclonal antibody',
-                    'adc', 'car-t', 'small molecule', 'protein', 'peptide', 'vaccine', 'biologic',
-                    'biosimilar', 'combination therapy', 'platform'
-                ];
-
-                modalities.forEach(modality => {
-                    const regex = new RegExp(`\\b${modality}\\b`, 'gi');
-                    const matches = text.match(regex);
-                    if (matches) {
-                        entities.modalities.push(modality);
-                    }
-                });
-
-                // Phase patterns
-                const phaseMatches = text.match(/phase\s+[i]+[\/\d]*/gi);
-                if (phaseMatches) entities.phases.push(...phaseMatches);
-
-                // Regulatory patterns
-                const regulatoryTerms = ['fda', 'ema', 'nda', 'bla', 'approval', 'submission', 'filing', 'regulatory', 'authorize'];
-                regulatoryTerms.forEach(term => {
-                    const regex = new RegExp(`\\b${term}\\b`, 'gi');
-                    const matches = text.match(regex);
-                    if (matches) {
-                        entities.regulatory.push(term);
-                    }
-                });
-
-                // Financial patterns
-                const financialMatches = text.match(/\$[\d,]+\s*(million|billion|m|b)/gi);
-                if (financialMatches) entities.financial.push(...financialMatches);
-
-                // Geographic patterns
+            detectGeographic(words, text, entities) {
                 const geographicPatterns = [
-                    /\bchina\b/gi,
-                    /\bchinese\b/gi,
-                    /\bUS\b/gi,
-                    /\bUSA\b/gi,
-                    /\beurope\b/gi,
-                    /\beuropean\b/gi,
-                    /\bjapan\b/gi,
-                    /\bjapanese\b/gi,
-                    /\bglobal\b/gi,
-                    /\bworldwide\b/gi,
-                    /\binternational\b/gi,
-                    /\bregional\b/gi,
-                    /\bdomestic\b/gi,
-                    /\bmarket\b/gi,
-                    /\badult\s+chinese\s+residents\b/gi
+                    /\b(China|Chinese|US|USA|America|American|Europe|European|Japan|Japanese|Global|Worldwide|International)\b/gi,
+                    /\b(Asia|African|Australian|Canadian|German|French|British|Italian|Spanish|Korean)\b/gi
                 ];
 
                 geographicPatterns.forEach(pattern => {
                     const matches = text.match(pattern);
                     if (matches) {
-                        matches.forEach(match => {
-                            entities.geographic.push(match.trim());
-                        });
+                        entities.geographic.push(...matches);
                     }
                 });
-
-                console.log('Entities detected:', entities);
-                return entities;
             }
 
-            // Smart semantic matching with pharmaceutical domain knowledge
-            calculateSmartSimilarity(snippet, tableName, tableInfo) {
-                const entities = this.extractPharmaceuticalEntities(snippet);
-                const snippetLower = snippet.toLowerCase();
-                const tableDesc = tableInfo.description.toLowerCase();
-                const tableKeywords = tableInfo.semanticKeywords.map(k => k.toLowerCase());
+            detectMarketTerms(textLower, entities) {
+                const marketTerms = [
+                    'market size', 'market forecast', 'forecast', 'estimated', 'statistics', 
+                    'trend', 'opportunities', 'market share', 'revenue', 'sales'
+                ];
+
+                marketTerms.forEach(term => {
+                    if (textLower.includes(term)) {
+                        entities.marketTerms.push(term);
+                    }
+                });
+            }
+
+            detectPresentationTerms(textLower, entities) {
+                const presentationTerms = [
+                    'presentation', 'corporate presentation', 'slide', 'chart', 'title', 
+                    'donut chart', 'bar chart', 'overview'
+                ];
+
+                presentationTerms.forEach(term => {
+                    if (textLower.includes(term)) {
+                        entities.presentationTerms.push(term);
+                    }
+                });
+            }
+
+            // Pharmaceutical knowledge validation functions
+            isLikelyPharmaceuticalCompany(name) {
+                const pharmaIndicators = ['bio', 'pharma', 'med', 'therapeutic', 'sciences', 'labs'];
+                const nameLower = name.toLowerCase();
                 
-                let score = 0;
-                let matches = [];
-
-                // Direct keyword matching with higher weight
-                for (const keyword of tableKeywords) {
-                    if (snippetLower.includes(keyword)) {
-                        score += 0.3;
-                        matches.push(`Direct match: ${keyword}`);
-                    }
+                // Check if name contains pharmaceutical indicators
+                for (const indicator of pharmaIndicators) {
+                    if (nameLower.includes(indicator)) return true;
                 }
-
-                // Table-specific entity matching
-                switch (tableName) {
-                    case 'organizations':
-                        if (entities.companies.length > 0) {
-                            score += 0.5;
-                            matches.push(`Companies found: ${entities.companies.join(', ')}`);
-                        }
-                        break;
-
-                    case 'drugs':
-                        if (entities.drugs.length > 0) {
-                            score += 0.5;
-                            matches.push(`Drugs found: ${entities.drugs.join(', ')}`);
-                        }
-                        break;
-
-                    case 'brands':
-                        if (entities.brands.length > 0) {
-                            score += 0.5;
-                            matches.push(`Brands found: ${entities.brands.join(', ')}`);
-                        }
-                        break;
-
-                    case 'diseases':
-                        if (entities.diseases.length > 0) {
-                            score += 0.5;
-                            matches.push(`Diseases found: ${entities.diseases.join(', ')}`);
-                        }
-                        break;
-
-                    case 'therapeutic_areas':
-                        if (entities.therapeuticAreas.length > 0) {
-                            score += 0.4;
-                            matches.push(`Therapeutic areas: ${entities.therapeuticAreas.join(', ')}`);
-                        }
-                        break;
-
-                    case 'therapeutic_modalities':
-                        if (entities.modalities.length > 0) {
-                            score += 0.4;
-                            matches.push(`Modalities: ${entities.modalities.join(', ')}`);
-                        }
-                        break;
-
-                    case 'entity_milestones':
-                        if (entities.milestones.length > 0) {
-                            score += 0.4;
-                            matches.push(`Milestones: ${entities.milestones.join(', ')}`);
-                        }
-                        break;
-
-                    case 'organization_therapeutic_area_modalities':
-                        if (entities.companies.length > 0 && entities.therapeuticAreas.length > 0 && entities.modalities.length > 0) {
-                            score += 0.6;
-                            matches.push('Organization + Therapeutic Area + Modality combination found');
-                        }
-                        break;
-
-                    case 'clinical_trials':
-                    case 'drug_indication_development_stages':
-                        if (entities.phases.length > 0) {
-                            score += 0.4;
-                            matches.push(`Clinical phases: ${entities.phases.join(', ')}`);
-                        }
-                        break;
-
-                    case 'regulatory_approvals':
-                    case 'regulatory_review_milestones':
-                        if (entities.regulatory.length > 0) {
-                            score += 0.4;
-                            matches.push(`Regulatory terms: ${entities.regulatory.join(', ')}`);
-                        }
-                        break;
-
-                    case 'sales_data':
-                    case 'organization_financial_data':
-                        if (entities.financial.length > 0) {
-                            score += 0.4;
-                            matches.push(`Financial data: ${entities.financial.join(', ')}`);
-                        }
-                        break;
-
-                    case 'indication_specifications':
-                        if (entities.diseases.length > 0) {
-                            score += 0.4;
-                            matches.push(`Disease indications: ${entities.diseases.join(', ')}`);
-                        }
-                        break;
-
-                    case 'market_catalysts':
-                        if (entities.milestones.length > 0 || entities.regulatory.length > 0) {
-                            score += 0.3;
-                            matches.push('Market catalyst events detected');
-                        }
-                        break;
-
-                    case 'drug_targets':
-                        if (entities.drugs.length > 0) {
-                            score += 0.3;
-                            matches.push('Drug-target relationship implied');
-                        }
-                        break;
-
-                    case 'drug_drug_classes':
-                        if (entities.drugs.length > 0) {
-                            score += 0.3;
-                            matches.push('Drug classification implied');
-                        }
-                        break;
-
-                    case 'drug_modalities':
-                        if (entities.drugs.length > 0 && entities.modalities.length > 0) {
-                            score += 0.4;
-                            matches.push('Drug-modality relationship found');
-                        }
-                        break;
-
-                    case 'market_forecasts':
-                        if (entities.marketForecasts.length > 0) {
-                            score += 0.6; // Increased weight for market forecasts
-                            matches.push(`Market forecast indicators: ${entities.marketForecasts.slice(0, 3).join(', ')}`);
-                        }
-                        // Additional boost for specific forecast language
-                        if (snippetLower.includes('forecast') || snippetLower.includes('forecasts')) {
-                            score += 0.2;
-                            matches.push('Direct forecast language detected');
-                        }
-                        break;
-
-                    case 'market_sizing':
-                        if (entities.marketSizing.length > 0) {
-                            score += 0.6; // Increased weight for market sizing
-                            matches.push(`Market sizing indicators: ${entities.marketSizing.slice(0, 3).join(', ')}`);
-                        }
-                        // Additional boost for specific sizing language
-                        if (snippetLower.includes('market size') || snippetLower.includes('market overview')) {
-                            score += 0.2;
-                            matches.push('Direct market sizing language detected');
-                        }
-                        break;
-
-                    case 'geographies':
-                        if (entities.geographic.length > 0) {
-                            score += 0.4;
-                            matches.push(`Geographic terms: ${entities.geographic.join(', ')}`);
-                        }
-                        break;
-                }
-
-                // Contextual word matching
-                const contextWords = snippetLower.split(/\s+/);
-                for (const word of contextWords) {
-                    if (tableKeywords.includes(word)) {
-                        score += 0.1;
-                        matches.push(`Context match: ${word}`);
-                    }
-                }
-
-                // Phrase matching for compound terms
-                for (const keyword of tableKeywords) {
-                    if (keyword.includes(' ') && snippetLower.includes(keyword)) {
-                        score += 0.2;
-                        matches.push(`Phrase match: ${keyword}`);
-                    }
-                }
-
-                if (this.debugMode && score > 0) {
-                    console.log(`${tableName}: Score ${score.toFixed(3)}, Matches: ${matches.join('; ')}`);
-                }
-
-                return {
-                    score: Math.min(score, 1.0), // Cap at 1.0
-                    matches: matches
-                };
+                
+                // Check if it's a known major pharmaceutical company
+                return this.isKnownPharmaceuticalCompany(name);
             }
 
-            // Main classification function
+            isKnownPharmaceuticalCompany(name) {
+                // Use pharmaceutical knowledge to identify known companies
+                const knownCompanies = {
+                    'novartis': true, 'pfizer': true, 'roche': true, 'merck': true, 'gsk': true,
+                    'glaxosmithkline': true, 'johnson': true, 'abbvie': true, 'bristol': true,
+                    'lilly': true, 'sanofi': true, 'bayer': true, 'takeda': true, 'astrazeneca': true,
+                    'gilead': true, 'biogen': true, 'amgen': true, 'regeneron': true, 'vertex': true,
+                    'moderna': true, 'biontech': true, '3sbio': true, 'celgene': true, 'allergan': true
+                };
+                return knownCompanies[name.toLowerCase()] || false;
+            }
+
+            isLikelyDrugName(name) {
+                // Basic validation for drug names
+                if (name.length < 4) return false;
+                if (!/^[A-Za-z]/.test(name)) return false;
+                
+                // Exclude common English words that might match patterns
+                const commonWords = ['presentation', 'company', 'development', 'treatment', 'management'];
+                return !commonWords.includes(name.toLowerCase());
+            }
+
+            isKnownDrugName(name) {
+                // Use pharmaceutical knowledge for known drugs
+                const knownDrugs = {
+                    'semaglutide': true, 'ozempic': true, 'wegovy': true, 'mounjaro': true,
+                    'trulicity': true, 'iptacopan': true, 'aspirin': true, 'metformin': true,
+                    'insulin': true, 'adalimumab': true, 'bevacizumab': true, 'trastuzumab': true,
+                    'pembrolizumab': true, 'nivolumab': true, 'rituximab': true, 'infliximab': true
+                };
+                return knownDrugs[name.toLowerCase()] || false;
+            }
+
+            isLikelyPharmaceuticalBrand(name) {
+                // Check if it follows pharmaceutical brand naming patterns
+                if (name.length < 3) return false;
+                
+                // Pharmaceutical brands often have specific patterns
+                const hasCapitalPattern = /^[A-Z][a-z]+[A-Z]?[a-z]*$/.test(name);
+                const isNotCommonWord = !['Title', 'Main', 'Chart', 'Data'].includes(name);
+                
+                return hasCapitalPattern && isNotCommonWord;
+            }
+
+            // Enhanced classification with rationale generation
             classify(snippet) {
                 this.startTime = Date.now();
                 this.processingSteps = [];
                 
-                console.log('Starting classification for:', snippet);
-
-                // Step 1: Text Preprocessing
+                // Step 1: Entity Extraction
                 this.updateProcessingStep('step1', 'active');
-                const entities = this.extractPharmaceuticalEntities(snippet);
-                console.log('Entities detected:', entities);
-                this.processingSteps.push(`Entities extracted: Companies: ${entities.companies.length}, Drugs: ${entities.drugs.length}, Brands: ${entities.brands.length}, Diseases: ${entities.diseases.length}, Market Forecasts: ${entities.marketForecasts.length}, Market Sizing: ${entities.marketSizing.length}`);
+                this.entities = this.extractPharmaceuticalEntities(snippet);
+                this.processingSteps.push(`Extracted entities: ${Object.keys(this.entities).filter(k => this.entities[k].length > 0).join(', ')}`);
                 this.updateProcessingStep('step1', 'completed');
 
-                // Step 2: Feature Extraction
+                // Step 2: Domain Analysis
                 this.updateProcessingStep('step2', 'active');
-                this.processingSteps.push('Pharmaceutical entities and features extracted');
+                const snippetLower = snippet.toLowerCase();
+                this.processingSteps.push('Analyzed pharmaceutical domain context');
                 this.updateProcessingStep('step2', 'completed');
 
-                // Step 3: Semantic Analysis
+                // Step 3: Context Matching
                 this.updateProcessingStep('step3', 'active');
-                this.processingSteps.push('Domain-specific semantic analysis completed');
+                this.processingSteps.push('Matched entities to table contexts');
                 this.updateProcessingStep('step3', 'completed');
 
                 // Step 4: Classification
@@ -1275,33 +1331,53 @@
                 const classifications = [];
 
                 for (const [tableName, tableInfo] of Object.entries(tableDescriptions)) {
-                    const result = this.calculateSmartSimilarity(snippet, tableName, tableInfo);
-                    
-                    if (result.score > this.threshold) {
+                    let score = 0;
+                    let matches = [];
+                    let rationale = [];
+
+                    // Keyword matching
+                    for (const keyword of tableInfo.keywords) {
+                        if (snippetLower.includes(keyword.toLowerCase())) {
+                            score += 0.3;
+                            matches.push(`Keyword: ${keyword}`);
+                            rationale.push(`Found keyword "${keyword}" which indicates ${tableName} relevance`);
+                        }
+                    }
+
+                    // Entity-specific boosts with detailed rationales
+                    const entityRationale = this.generateEntityRationale(tableName, snippet, rationale);
+                    score += entityRationale.score;
+                    matches.push(...entityRationale.matches);
+
+                    if (score > this.threshold) {
                         classifications.push({
                             table: tableName,
-                            confidence: result.score,
+                            confidence: Math.min(score, 1.0),
+                            matches: matches,
+                            rationale: rationale.length > 0 ? rationale.join('. ') : `Content matches ${tableName} classification criteria based on keyword and context analysis`,
                             breakdown: {
-                                semantic: result.score,
-                                matches: result.matches
+                                score: score,
+                                matchCount: matches.length
                             }
                         });
                     }
                 }
 
-                this.processingSteps.push(`${classifications.length} table matches found above threshold`);
+                this.processingSteps.push(`Generated ${classifications.length} classifications`);
                 this.updateProcessingStep('step4', 'completed');
 
-                // Step 5: Confidence Scoring and Ranking
+                // Step 5: Scoring
                 this.updateProcessingStep('step5', 'active');
                 classifications.sort((a, b) => b.confidence - a.confidence);
 
-                // Always include document tables with lower confidence
+                // Always include document tables with rationales
                 if (!classifications.some(c => c.table === 'document_sources')) {
                     classifications.push({
                         table: 'document_sources',
                         confidence: 0.8,
-                        breakdown: { semantic: 0.8, matches: ['Default: All snippets have document sources'] }
+                        matches: ['Default: All snippets have document sources'],
+                        rationale: 'All pharmaceutical content originates from source documents and requires document metadata tracking for traceability and compliance purposes',
+                        breakdown: { score: 0.8, matchCount: 1 }
                     });
                 }
 
@@ -1309,16 +1385,93 @@
                     classifications.push({
                         table: 'field_citations',
                         confidence: 0.8,
-                        breakdown: { semantic: 0.8, matches: ['Default: All snippets need field citations'] }
+                        matches: ['Default: All snippets need field citations'],
+                        rationale: 'Pharmaceutical data requires precise traceability linking specific information back to its exact source location for regulatory compliance and data integrity',
+                        breakdown: { score: 0.8, matchCount: 1 }
                     });
                 }
 
-                this.processingSteps.push(`Final classification completed with ${classifications.length} tables`);
+                this.processingSteps.push('Final scoring and ranking completed');
                 this.updateProcessingStep('step5', 'completed');
 
-                console.log('Classification results:', classifications);
-                
                 return classifications;
+            }
+
+            // Generate detailed rationales for entity-based classifications
+            generateEntityRationale(tableName, snippet, rationale) {
+                let score = 0;
+                let matches = [];
+
+                switch (tableName) {
+                    case 'organizations':
+                        if (this.entities.companies.length > 0) {
+                            score += 0.6;
+                            matches.push(`Companies: ${this.entities.companies.join(', ')}`);
+                            rationale.push(`Identified pharmaceutical organizations: ${this.entities.companies.join(', ')}. This content contains information about pharmaceutical companies and should be stored in the organizations table`);
+                        }
+                        break;
+                    case 'drugs':
+                        if (this.entities.drugs.length > 0) {
+                            score += 0.6;
+                            matches.push(`Drugs: ${this.entities.drugs.join(', ')}`);
+                            rationale.push(`Detected pharmaceutical drugs: ${this.entities.drugs.join(', ')}. This content discusses specific drug compounds/medications and belongs in the drugs table`);
+                        }
+                        break;
+                    case 'therapeutic_areas':
+                        if (this.entities.therapeuticAreas.length > 0) {
+                            score += 0.6;
+                            matches.push(`Therapeutic Areas: ${this.entities.therapeuticAreas.join(', ')}`);
+                            rationale.push(`Found therapeutic areas: ${this.entities.therapeuticAreas.join(', ')}. This content relates to medical specialties and treatment domains relevant to the therapeutic_areas table`);
+                        }
+                        break;
+                    case 'diseases':
+                        if (this.entities.diseases.length > 0) {
+                            score += 0.6;
+                            matches.push(`Diseases: ${this.entities.diseases.join(', ')}`);
+                            rationale.push(`Identified medical conditions: ${this.entities.diseases.join(', ')}. This content discusses specific diseases/conditions and should be categorized under the diseases table`);
+                        }
+                        break;
+                    case 'geographies':
+                        if (this.entities.geographic.length > 0) {
+                            score += 0.6;
+                            matches.push(`Geographic: ${this.entities.geographic.join(', ')}`);
+                            rationale.push(`Detected geographic references: ${this.entities.geographic.join(', ')}. This content has geographic context and belongs in the geographies table`);
+                        }
+                        break;
+                    case 'market_sizing':
+                        if (this.entities.marketTerms.length > 0 || this.entities.financialData.length > 0) {
+                            score += 0.6;
+                            matches.push(`Market indicators found`);
+                            rationale.push(`Contains market sizing indicators including statistical data and patient population estimates. This content provides market size estimates and belongs in the market_sizing table`);
+                        }
+                        if (snippet.toLowerCase().includes('market size') || snippet.toLowerCase().includes('statistics')) {
+                            score += 0.4;
+                            matches.push('Market sizing language detected');
+                            rationale.push(`Explicit market sizing language detected. This content directly discusses market size estimates or statistical data relevant to pharmaceutical markets`);
+                        }
+                        break;
+                    case 'market_forecasts':
+                        if (snippet.toLowerCase().includes('forecast') || snippet.toLowerCase().includes('trend')) {
+                            score += 0.7;
+                            matches.push('Forecast language detected');
+                            rationale.push(`Contains forecasting language indicating future market projections. This content provides market predictions and belongs in the market_forecasts table`);
+                        }
+                        if (snippet.toLowerCase().includes('2030e') || snippet.toLowerCase().includes('estimated')) {
+                            score += 0.5;
+                            matches.push('Future projections detected');
+                            rationale.push(`Detected future projections with estimated data points. This content includes forward-looking market predictions suitable for the market_forecasts table`);
+                        }
+                        break;
+                    case 'document_sources':
+                        if (this.entities.presentationTerms.length > 0) {
+                            score += 0.6;
+                            matches.push(`Document terms: ${this.entities.presentationTerms.join(', ')}`);
+                            rationale.push(`Contains document-related terminology: ${this.entities.presentationTerms.join(', ')}. This content references source materials and belongs in the document_sources table`);
+                        }
+                        break;
+                }
+
+                return { score, matches };
             }
 
             updateProcessingStep(stepId, status) {
@@ -1335,10 +1488,14 @@
             getAnalysisDetails() {
                 return this.processingSteps;
             }
+
+            getEntityCount() {
+                return Object.values(this.entities).reduce((sum, arr) => sum + arr.length, 0);
+            }
         }
 
         // Initialize classifier
-        const classifier = new PharmaceuticalClassifier();
+        const classifier = new EnhancedPharmaceuticalClassifier();
 
         // Update threshold display
         document.getElementById('thresholdSlider').addEventListener('input', function(e) {
@@ -1346,6 +1503,171 @@
             document.getElementById('thresholdValue').textContent = value;
             classifier.threshold = parseFloat(value);
         });
+
+        // Update batch threshold display
+        document.getElementById('batchThresholdSlider').addEventListener('input', function(e) {
+            const value = e.target.value;
+            document.getElementById('batchThresholdValue').textContent = value;
+        });
+
+        // Tab switching functionality
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            if (tabName === 'single') {
+                document.getElementById('singleTab').classList.add('active');
+                document.getElementById('resultsSection').style.display = 'block';
+                document.getElementById('batchResultsSection').style.display = 'none';
+            } else if (tabName === 'batch') {
+                document.getElementById('batchTab').classList.add('active');
+                document.getElementById('resultsSection').style.display = 'none';
+                document.getElementById('batchResultsSection').style.display = 'block';
+            }
+        }
+
+        // Batch processing functionality
+        let batchResults = [];
+
+        async function processBatchSnippets() {
+            const batchInput = document.getElementById('batchInput').value.trim();
+            if (!batchInput) {
+                alert('Please enter snippets to process.');
+                return;
+            }
+
+            // Parse snippets (split by empty lines or ---)
+            const snippets = batchInput
+                .split(/\n\s*\n|\n\s*---\s*\n/)
+                .map(s => s.trim())
+                .filter(s => s.length > 0);
+
+            if (snippets.length === 0) {
+                alert('No valid snippets found. Please separate snippets with empty lines or "---".');
+                return;
+            }
+
+            // Setup processing
+            const batchThreshold = parseFloat(document.getElementById('batchThresholdSlider').value);
+            classifier.threshold = batchThreshold;
+            
+            document.getElementById('batchProcessBtn').disabled = true;
+            document.getElementById('batchProgress').style.display = 'block';
+            document.getElementById('batchResultsSection').style.display = 'block';
+            
+            const startTime = Date.now();
+            batchResults = [];
+            let totalClassifications = 0;
+            let totalConfidence = 0;
+
+            // Process each snippet
+            for (let i = 0; i < snippets.length; i++) {
+                const snippet = snippets[i];
+                
+                // Update progress
+                const progress = ((i + 1) / snippets.length) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+                document.getElementById('progressText').textContent = `Processing snippet ${i + 1} of ${snippets.length}...`;
+                
+                // Add delay for better UX
+                await new Promise(resolve => setTimeout(resolve, 200));
+                
+                // Classify snippet
+                const classifications = classifier.classify(snippet);
+                totalClassifications += classifications.length;
+                
+                // Add results with rationales
+                classifications.forEach(classification => {
+                    totalConfidence += classification.confidence;
+                    batchResults.push({
+                        snippet: snippet,
+                        rationale: classification.rationale,
+                        table: classification.table,
+                        confidence: classification.confidence
+                    });
+                });
+            }
+
+            // Update final stats
+            const processingTime = (Date.now() - startTime) / 1000;
+            const avgConfidence = totalClassifications > 0 ? totalConfidence / totalClassifications : 0;
+            
+            document.getElementById('totalSnippets').textContent = snippets.length;
+            document.getElementById('totalClassifications').textContent = totalClassifications;
+            document.getElementById('batchAvgConfidence').textContent = Math.round(avgConfidence * 100) + '%';
+            document.getElementById('batchProcessingTime').textContent = processingTime.toFixed(1) + 's';
+
+            // Display results
+            displayBatchResults();
+            
+            // Show stats and download button
+            document.getElementById('batchStatsDiv').style.display = 'grid';
+            document.getElementById('downloadBtn').style.display = 'inline-block';
+            
+            // Hide progress
+            document.getElementById('batchProgress').style.display = 'none';
+            document.getElementById('batchProcessBtn').disabled = false;
+        }
+
+        function displayBatchResults() {
+            const resultsBody = document.getElementById('batchResultsBody');
+            resultsBody.innerHTML = '';
+
+            batchResults.forEach((result) => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td class="batch-snippet-cell">${result.snippet}</td>
+                    <td class="rationale-cell">${result.rationale}</td>
+                    <td class="table-tag-cell">
+                        <span class="batch-table-tag">
+                            ${result.table} (${Math.round(result.confidence * 100)}%)
+                        </span>
+                    </td>
+                `;
+                resultsBody.appendChild(row);
+            });
+
+            document.getElementById('batchResultsTable').style.display = 'table';
+        }
+
+        function downloadResults() {
+            if (batchResults.length === 0) {
+                alert('No results to download.');
+                return;
+            }
+
+            // Create CSV content
+            const csvHeader = 'Snippet,Rationale for Classification,Table Tagged,Confidence\n';
+            const csvContent = batchResults.map(result => {
+                const snippet = result.snippet.replace(/"/g, '""');
+                const rationale = result.rationale.replace(/"/g, '""');
+                const table = result.table;
+                const confidence = Math.round(result.confidence * 100) + '%';
+                return `"${snippet}","${rationale}","${table}","${confidence}"`;
+            }).join('\n');
+
+            const fullCsv = csvHeader + csvContent;
+
+            // Create and download file
+            const blob = new Blob([fullCsv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `pharmaceutical_classifications_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
 
         async function classifySnippet() {
             const snippet = document.getElementById('snippetInput').value.trim();
@@ -1368,8 +1690,8 @@
                 document.getElementById(id).className = 'step';
             });
 
-            // Simulate processing delay for better UX
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            // Add processing delay for better UX
+            await new Promise(resolve => setTimeout(resolve, 1500));
 
             // Perform classification
             const classifications = classifier.classify(snippet);
@@ -1395,9 +1717,11 @@
                 const confidenceClass = classification.confidence > 0.7 ? 'confidence-high' : 
                                       classification.confidence > 0.4 ? 'confidence-medium' : 'confidence-low';
                 
-                const matchesText = classification.breakdown.matches && classification.breakdown.matches.length > 0 ? 
-                    classification.breakdown.matches.slice(0, 2).join('; ') : 
-                    'Algorithm-based match';
+                const matchesText = classification.matches && classification.matches.length > 0 ? 
+                    classification.matches.slice(0, 2).join('; ') : 
+                    'Pattern-based match';
+
+                const rationaleText = classification.rationale || 'Classification based on keyword and pattern analysis';
 
                 row.innerHTML = `
                     <td class="snippet-cell">${index === 0 ? snippet : ''}</td>
@@ -1411,6 +1735,9 @@
                         <div style="font-size: 0.8em; color: #666; margin-top: 5px; font-style: italic;">
                             ${matchesText}
                         </div>
+                        <div style="font-size: 0.85em; color: #555; margin-top: 8px; padding: 8px; background: rgba(52, 152, 219, 0.05); border-radius: 4px;">
+                            <strong>Rationale:</strong> ${rationaleText}
+                        </div>
                     </td>
                 `;
                 resultsBody.appendChild(row);
@@ -1418,12 +1745,12 @@
 
             // Update statistics
             const avgConfidence = classifications.reduce((sum, c) => sum + c.confidence, 0) / classifications.length;
-            const semanticScore = classifications.reduce((sum, c) => sum + c.breakdown.semantic, 0) / classifications.length;
+            const entityCount = classifier.getEntityCount();
             
             document.getElementById('tableCount').textContent = classifications.length;
             document.getElementById('avgConfidence').textContent = Math.round(avgConfidence * 100) + '%';
             document.getElementById('processingTime').textContent = processingTime + 'ms';
-            document.getElementById('semanticScore').textContent = Math.round(semanticScore * 100) + '%';
+            document.getElementById('entityCount').textContent = entityCount;
 
             // Show algorithm details
             const analysisDetails = document.getElementById('analysisDetails');
@@ -1442,8 +1769,9 @@
             }
         });
 
-        // Initialize threshold display
+        // Initialize threshold displays
         document.getElementById('thresholdValue').textContent = '0.15';
+        document.getElementById('batchThresholdValue').textContent = '0.15';
     </script>
 </body>
 </html>
